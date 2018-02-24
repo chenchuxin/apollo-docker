@@ -7,7 +7,7 @@ ENV version=${version}
 
 COPY src/${package_name} /src/
 COPY src/settings.xml /usr/share/maven/conf/
-COPY build.sh /scripts
+COPY build.sh /scripts/
  
 WORKDIR /src
 RUN tar zxf ${package_name} --strip-components=1 \
