@@ -1,0 +1,36 @@
+version: '3.4'
+services:
+ configservice:
+  image: chenchuxin/apollo
+  environment:
+  - spring_datasource_url=jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8
+  - spring_datasource_username=root
+  - server.port=8080
+  command: configservice.jar
+  network_mode: host
+  restart: always
+
+ adminservice:
+  image: chenchuxin/apollo
+  environment:
+  - spring_datasource_url=jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8
+  - spring_datasource_username=root
+  - server.port=8090
+  command: adminservice.jar
+  network_mode: host
+  depends_on:
+   - configservice
+  restart: always
+
+ portal:
+  image: chenchuxin/apollo
+  environment:
+  - spring_datasource_url=jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8
+  - spring_datasource_username=root
+  - server.port=8070
+  - dev_meta=http://localhost:8080
+  command: portal.jar
+  network_mode: host
+  depends_on:
+   - adminservice
+  restart: always
