@@ -15,14 +15,13 @@ RUN tar zxf ${package_name} --strip-components=1 \
     && cp /scripts/build.sh scripts/ \
     && chmod 777 scripts/*.sh \
     && scripts/build.sh \
-    && mkdir /app
-
-WORKDIR /app
-RUN cp apollo-configservice/target/apollo-configservice-${version}.jar /app/configservice.jar \
+    && mkdir /app \
+    && cp apollo-configservice/target/apollo-configservice-${version}.jar /app/configservice.jar \
     && cp apollo-adminservice/target/apollo-adminservice-${version}.jar /app/adminservice.jar \
     && cp apollo-portal/target/apollo-portal-${version}.jar /app/portal.jar \
     && rm -rf /src \
     && rm -rf ~/.m2/repository
 
+WORKDIR /app
 ENTRYPOINT [ "java", "-jar" ]
 CMD [ "configservice.jar" ]
