@@ -5,7 +5,11 @@ services:
   environment:
   - spring_datasource_url=jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8
   - spring_datasource_username=root
+  - spring_datasource_password=xxx
+  - logging.file=/opt/logs/configservice.log
   - server.port=8080
+  voulumes:
+  - /var/log/apollo:/opt/logs
   command: configservice.jar
   network_mode: host
   restart: always
@@ -15,7 +19,11 @@ services:
   environment:
   - spring_datasource_url=jdbc:mysql://localhost:3306/ApolloConfigDB?characterEncoding=utf8
   - spring_datasource_username=root
+  - spring_datasource_password=xxx
+  - logging.file=/opt/logs/adminservice.log
   - server.port=8090
+  voulumes:
+  - /var/log/apollo:/opt/logs
   command: adminservice.jar
   network_mode: host
   depends_on:
@@ -27,9 +35,12 @@ services:
   environment:
   - spring_datasource_url=jdbc:mysql://localhost:3306/ApolloPortalDB?characterEncoding=utf8
   - spring_datasource_username=root
+  - spring_datasource_password=xxx
   - server.port=8070
-  - dev_meta=http://localhost:8080
-  command: portal.jar
+  - logging.file=/opt/logs/portal.log
+  voulumes:
+  - /var/log/apollo:/opt/logs
+  command: -Ddev_meta=http://localhost:8080 portal.jar
   network_mode: host
   depends_on:
    - adminservice
