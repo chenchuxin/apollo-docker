@@ -13,16 +13,16 @@ WORKDIR /src
 RUN tar zxf ${package_name} --strip-components=1 \
     && rm ${package_name} \
     && cp /scripts/build.sh scripts/ \
-    && chmod 777 scripts/*.sh \
-    && scripts/build.sh \
-    && mkdir /app \
+    && chmod 777 scripts/*.sh
+RUN scripts/build.sh
+RUN mkdir /app \
     && cp apollo-configservice/target/apollo-configservice-${version}.jar /app/configservice.jar \
     && cp apollo-adminservice/target/apollo-adminservice-${version}.jar /app/adminservice.jar \
     && cp apollo-portal/target/apollo-portal-${version}.jar /app/portal.jar \
     && rm -rf /src \
-    && rm -rf ~/.m2/repository \
-    && #时区 \
-    && apk add -U tzdata \
+    && rm -rf ~/.m2/repository
+ 
+RUN apk add -U tzdata \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apk del tzdata
 

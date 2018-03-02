@@ -15,12 +15,6 @@ dev_meta=http://localhost:8080
 
 META_SERVERS_OPTS="-Ddev_meta=$dev_meta"
 
-# =============== Please do not modify the following content =============== #
-# go to script directory
-cd "${0%/*}"
-
-cd ..
-
 # package config-service and admin-service
 echo "==== starting to build config-service and admin-service ===="
 
