@@ -20,7 +20,8 @@ RUN tar zxf ${package_name} --strip-components=1 \
     && cp apollo-adminservice/target/apollo-adminservice-${version}.jar /app/adminservice.jar \
     && cp apollo-portal/target/apollo-portal-${version}.jar /app/portal.jar \
     && rm -rf /src \
-    && rm -rf ~/.m2/repository
+    && rm -rf ~/.m2/repository \
+    && ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
 
 WORKDIR /app
 ENTRYPOINT [ "java", "-jar" ]
